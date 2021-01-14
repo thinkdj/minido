@@ -1,0 +1,117 @@
+/* Configurations */
+:root {
+    --color-bg: #F4F8FC;
+    --color-todo-bg: #FFF;
+    --color-primary: #2CA4DD;
+    --color-accent: #BDD629;
+    --color-text-dark: #162A48;
+    --color-text-light: #646464;
+    --app-width: 640px;
+}
+
+html, body {
+    margin: 0; padding:0;
+    font-family: "Open Sans", OpenSans, Arial, "Helvetica Neue", "Microsoft YaHei", sans-serif;
+}
+
+.app {
+    background: var(--color-bg);
+    min-height: 100vh;
+}
+.container { }
+.app-container {
+    width: 95%;
+    min-width: var(--app-width);
+    max-width: var(--app-width);
+    margin: 60px auto 100px;
+}
+.app-todo {
+    background: var(--color-todo-bg);
+    color: var(--color-text-light);
+    border: 1px solid rgba(0,0,0,0.10);
+    border-radius: 4px;
+    box-shadow: 0 6px 18px 0 rgba(0,35,90,.08), 0 0 2px 0 rgba(0,35,90,.06);
+    background-color: #fff;
+    transition: all .2s ease-in-out;
+    padding: 20px 20px 40px;
+}
+.app-header {
+    font-size: 1.45rem;
+    font-weight: normal;
+    display: block;
+    color: var(--color-text-dark);
+    text-align: center;
+}
+.app-header__heading {
+    margin: 10px 0 20px;
+    padding: 0;
+}
+.heading-sub {
+    padding: 0;
+    margin: 10px 0;
+}
+.flex-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.editable .task-checkbox,
+.editable .task-delete,
+.editable .task-label {
+    display: none;
+}
+.task-textbox {
+    display: none;
+}
+.editable .task-textbox {
+    display: inline;
+}
+
+/* Task Lists */
+.task-list {
+    padding: 0;
+    margin: 0;
+}
+.task-list li {
+    list-style: none;
+    display: block;
+    padding: 7px 5px;
+    line-height: 1.57;
+}
+.task-list li:hover {
+    background: #f5f5f5;
+}
+
+input[type=text] {
+    padding: 5px 10px;
+    border: 1px solid rgba(0,0,0,0.08);
+    border-radius: 2px;
+    min-width: 480px;
+}
+button {
+    padding: 5px 10px;
+    border: 1px solid rgba(0,0,0,0.08);
+    border-radius: 2px;
+}
+
+/* Buttons */
+.task-edit, .task-delete {
+    float: right;
+    margin-left: 5px;
+}
+.task-checkbox {
+    padding: 5px;
+    margin-right: 5px;
+    cursor: pointer;
+}
+
+
+/* EXTRAS */
+
+/* Custom Scrollbar for Chrome */
+/* @thinkdj; Apr 2020 */
+::-webkit-scrollbar {  width: 9px; }
+::-webkit-scrollbar:horizontal {  height: 9px; }
+::-webkit-scrollbar-thumb { background: #b9b9b9; border-radius: 20px; }
+::-webkit-scrollbar-track { background: #dddddd; border-radius: 20px; }

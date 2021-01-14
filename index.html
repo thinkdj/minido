@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="author" content="thinkdj">
+    <title>mini.do</title>
+    <link rel="stylesheet" href="assets/styles.css">
+    <!-- Prefetch -->
+    <link rel="prefetch" href="assets/images/todo-ico.png">
+    <!-- Favico -->
+    <link rel="icon" type="image/png" href="assets/images/todo-ico.png" />
+</head>
+<body>
+    <div class="app">
+        <div class="container flex-center">
+            <div class="app-container">
+                <div class="app-todo">
+                    <div class="app-header flex-center">
+                        <h4 class="app-header__heading">mini.do</h4>
+                    </div>
+
+                    <form onsubmit="null">
+                        <input id="todo-entry" type="text" autocomplete="false" />
+                        <button id="todo-submit" type="submit">+ Add</button>
+                    </form>
+
+                    <div class="app-body">
+
+                        <h3 class="heading-sub">Pending tasks</h3>
+                        <ul id="todos" class="task-list">
+                        </ul>
+
+                        <h3 class="heading-sub">Completed tasks</h3>
+                        <ul id="todos-completed" class="task-list">
+                        </ul>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<!-- The app -->
+<script async defer src="app.js"></script>
+</html>
