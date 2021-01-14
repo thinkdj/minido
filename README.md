@@ -2,9 +2,9 @@
 # ![logo](assets/images/todo-ico-20.png) mini.do
 A simple todo list built using vanilla JS and localStorage
 
+![logo](assets/images/sample.png)
 
 -----------
-
 
 ## Pending Enhancements
 * Localstorage for persistent storage
