@@ -6,11 +6,13 @@ A simple todo list built using vanilla JS and localStorage
 
 -----------
 
-## Pending Enhancements
-* Localstorage for persistent storage
-* (Font)Icons for actions
-* Responsive app
-* Timestamps (humanized) for created/completed datetime
-* Show actions on-hover alone for cleaner look
+Core app dev: ~3 hours
+
+## Enhancements
+* Show actions on-hover alone for a cleaner look - Commit 2
+* Localstorage for persistent storage - Pending
+* (Font)Icons for actions - Pending
+* Responsive app - Pending
+* Timestamps (humanized) for created/completed datetime - Pending
 
 

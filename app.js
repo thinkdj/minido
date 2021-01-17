@@ -1,12 +1,26 @@
 "use strict";
 
+
+function Task(task) {
+    this.id = generateUID();
+    this.task = task;
+    this.created_at = makeDateNow();
+    this.completed_at = null;
+}
+
+/* Simple Date fns */
+let timeFactor = 1000;
+function makeDateNow() { return ~~(+(new Date()) / timeFactor) }
+function getDate(epoch) { return new Date(+epoch * timeFactor); }
+
+/* Todo App */
 let taskInput  = document.getElementById("todo-entry");
 let taskSubmit = document.getElementById("todo-submit");
 
 let taskList = document.getElementById("todos");
 let taskListCompleted = document.getElementById("todos-completed");
 
-let taskAdd=function() {
+let taskAdd = function() {
     let newTask = taskInput.value;
     if(!newTask) return false;
 
@@ -15,9 +29,14 @@ let taskAdd=function() {
     bindTaskEvents(listItem, taskMarkCompleted);
 
     taskInput.value="";
-    return false; // Prevent Form Submit
+    return false; // Prevent form submit
 }
-let taskCreate = function(taskString) {
+
+
+let taskCreate = (taskString) => {
+
+    let newTask = new Task(taskString);
+    console.log(newTask);
 
     let listItem=document.createElement("li");
 
@@ -27,7 +46,7 @@ let taskCreate = function(taskString) {
     listItem.appendChild(checkBox);
 
     let label=document.createElement("label");
-    label.innerText=taskString;
+    label.innerText=newTask.task;
     label.className="task-label";
     listItem.appendChild(label);
 
@@ -50,60 +69,55 @@ let taskCreate = function(taskString) {
 }
 
 
+//Edit an existing task
+let taskEdit = function() {
+    let listItem = this.parentNode;
 
-//Edit an existing task.
-
-let taskEdit=function() {
-    let listItem=this.parentNode;
-
-    let editButton=listItem.querySelector('button');
-    editButton.innerText=(editButton.innerText==='Edit')?"Update":"Edit";
+    let editButton = listItem.querySelector('button');
+    editButton.innerText = (editButton.innerText==='Edit')?"Update":"Edit";
 
     let editInput=listItem.querySelector('input[type=text]');
 
     let label=listItem.querySelector("label");
 
     listItem.classList.contains("editable")?
-        label.innerText=editInput.value:
-        editInput.value=label.innerText;
+        label.innerText = editInput.value:
+        editInput.value = label.innerText;
 
     listItem.classList.toggle("editable");
 }
 
-//Delete task.
-let taskDelete=function(){
-    console.log("Delete Task...");
+//Delete task
+let taskDelete = function() {
     let confirmation = confirm("Delete task?");
     if(confirmation){
-        let listItem=this.parentNode;
-        let ul=listItem.parentNode;
+        let listItem = this.parentNode;
+        let ul = listItem.parentNode;
         ul.removeChild(listItem);
     }
 }
 
-
 //Mark a task as done
-let taskMarkCompleted=function(){
-    let listItem=this.parentNode;
+let taskMarkCompleted = function() {
+    let listItem = this.parentNode;
     taskListCompleted.appendChild(listItem);
     bindTaskEvents(listItem, taskMarkIncomplete);
 }
 
 //Undo `mark as done`
-let taskMarkIncomplete=function(){
-    let listItem=this.parentNode;
+let taskMarkIncomplete = function() {
+    let listItem = this.parentNode;
     taskList.appendChild(listItem);
-    bindTaskEvents(listItem,taskMarkCompleted);
+    bindTaskEvents(listItem, taskMarkCompleted);
 }
 
 //Set the click handler to the taskAdd function.
-taskSubmit.onclick=taskAdd;
+taskSubmit.onclick = taskAdd;
 taskSubmit.addEventListener("click", function() {
     // Additional code to be executed
 });
 
-
-let bindTaskEvents=function(taskListItem,checkBoxEventHandler){
+let bindTaskEvents = (taskListItem, checkBoxEventHandler) => {
     let checkBox=taskListItem.querySelector("input[type=checkbox]");
     let editButton=taskListItem.querySelector("button.task-edit");
     let deleteButton=taskListItem.querySelector("button.task-delete");
