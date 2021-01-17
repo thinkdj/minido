@@ -123,6 +123,7 @@ button {
 button:hover {
     color: var(--color-text-dark);
 }
+button#todo-submit { padding: 7px 10px }
 
 /* Buttons */
 .task-edit, .task-delete {

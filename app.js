@@ -1,5 +1,13 @@
 "use strict";
 
+/* Extend localStorage with Object-friendly methods */
+Storage.prototype.setObject = function(key, value) {
+    this.setItem(key, JSON.stringify(value));
+}
+Storage.prototype.getObject = function(key) {
+    let item = this.getItem(key);
+    return item && JSON.parse(item);
+}
 
 function Task(task) {
     this.id = generateUID();
