@@ -57,10 +57,14 @@ html, body, input, button {
 .app-header__heading {
     margin: 10px 0 30px;
     padding: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     line-height: 1.15;
+}
+.app-header__sub {
+    display: block;
+    padding: 5px 0;
+    font-size: 0.86rem;
+    opacity: 0.75;
+    font-weight: 500;
 }
 .heading-sub {
     padding: 0;
@@ -70,6 +74,11 @@ html, body, input, button {
     display: flex;
     align-items: center;
     justify-content: center;
+}
+.todo-grid {
+    display: grid;
+    grid-template-columns: auto 75px;
+    grid-gap: 10px;
 }
 
 li button { opacity: 0; transition: all .2s ease-in-out; }

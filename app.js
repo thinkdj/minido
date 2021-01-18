@@ -1,25 +1,26 @@
 "use strict";
 
+/* App Configuration */
+let config = {
+    storagePrefix: "minido_"
+}
+
 /* Extend localStorage with Object-friendly methods */
 Storage.prototype.setObject = function(key, value) {
-    this.setItem(key, JSON.stringify(value));
+    this.setItem(getKey(key), JSON.stringify(value));
 }
 Storage.prototype.getObject = function(key) {
-    let item = this.getItem(key);
+    let item = this.getItem(getKey(key));
     return item && JSON.parse(item);
 }
 
 function Task(task) {
-    this.id = generateUID();
+    this.id = generateID();
+    //this.uid = generateUID();
     this.task = task;
     this.created_at = makeDateNow();
     this.completed_at = null;
 }
-
-/* Simple Date fns */
-let timeFactor = 1000;
-function makeDateNow() { return ~~(+(new Date()) / timeFactor) }
-function getDate(epoch) { return new Date(+epoch * timeFactor); }
 
 /* Todo App */
 let taskInput  = document.getElementById("todo-entry");
@@ -28,11 +29,30 @@ let taskSubmit = document.getElementById("todo-submit");
 let taskList = document.getElementById("todos");
 let taskListCompleted = document.getElementById("todos-completed");
 
-let taskAdd = function() {
-    let newTask = taskInput.value;
-    if(!newTask) return false;
+let tasks = localStorage.getObject('tasks');
+console.log(tasks);
 
-    let listItem=taskCreate(newTask);
+function initApp() {
+    for(let i=0; i<taskList.children.length;i++) { bindTaskEvents(taskList.children[i],taskMarkCompleted); }
+    for(let i=0; i<taskListCompleted.children.length;i++) { bindTaskEvents(taskListCompleted.children[i],taskMarkIncomplete); }
+}
+initApp();
+
+let taskAdd = function() {
+    let newTaskItem = taskInput.value;
+    if(!newTaskItem) return false;
+
+    let newTask = new Task(newTaskItem);
+    console.log(newTask);
+
+    if(!tasks || !Array.isArray(tasks)) tasks = [];
+
+    tasks.push(newTask);
+
+    updateStorage(false,0,0);
+
+
+    let listItem = taskCreateDOMel(newTask.task);
     taskList.appendChild(listItem);
     bindTaskEvents(listItem, taskMarkCompleted);
 
@@ -41,10 +61,7 @@ let taskAdd = function() {
 }
 
 
-let taskCreate = (taskString) => {
-
-    let newTask = new Task(taskString);
-    console.log(newTask);
+let taskCreateDOMel = (taskString) => {
 
     let listItem=document.createElement("li");
 
@@ -54,7 +71,7 @@ let taskCreate = (taskString) => {
     listItem.appendChild(checkBox);
 
     let label=document.createElement("label");
-    label.innerText=newTask.task;
+    label.innerText=taskString;
     label.className="task-label";
     listItem.appendChild(label);
 
@@ -134,16 +151,34 @@ let bindTaskEvents = (taskListItem, checkBoxEventHandler) => {
     checkBox.onchange=checkBoxEventHandler;
 }
 
-for(let i=0; i<taskList.children.length;i++) {
-    bindTaskEvents(taskList.children[i],taskMarkCompleted);
-}
-for(let i=0; i<taskListCompleted.children.length;i++) {
-    bindTaskEvents(taskListCompleted.children[i],taskMarkIncomplete);
+
+function updateStorage(id,key,val) {
+    if(id) {
+        let taskItem = tasks.find(i => i.id===id);
+        if(!taskItem) return false;
+        taskItem[key] = val;
+    }
+    // Save to storage
+    localStorage.setObject('tasks',tasks);
 }
 
 
-// HELPER FUNCTIONS
+
+/*  HELPER FUNCTIONS  */
 // Generate an 8 digit random number for UID
 function generateUID() {
     return String(~~(Math.random()*Math.pow(10,8)))
 }
+function generateID() {
+    if(!tasks || !Array.isArray(tasks)) return 1;
+    else return +(tasks.reduce((a,b)=>a.id>b.id?a:b).id)+1;
+}
+// Get storage key
+function getKey(key) {
+    return config.storagePrefix + String(key)
+}
+
+/* Simple Date fns */
+let timeFactor = 1000;
+function makeDateNow() { return ~~(+(new Date()) / timeFactor) }
+function getDate(epoch) { return new Date(+epoch * timeFactor); }

@@ -9,19 +9,25 @@
     <link rel="stylesheet" href="assets/styles.css">
     <!-- Prefetch -->
     <link rel="prefetch" href="assets/images/todo-ico.png">
-    <!-- Favico -->
-    <link rel="icon" type="image/png" href="assets/images/todo-ico.png" />
+    <!-- FavIco -->
+    <link rel="icon" type="image/png" href="assets/images/todo-ico.png">
 </head>
 <body>
     <div class="app">
         <div class="container flex-center">
             <div class="app-container">
                 <div class="app-todo">
-                    <div class="app-header flex-center">
-                        <h4 class="app-header__heading color-primary"><img src="assets/images/todo-ico-20.png" alt="" class="logo" />mini.do</h4>
+                    <div class="app-header">
+                        <h4 class="app-header__heading color-primary">
+                            <span class="flex-center">
+                            <img src="assets/images/todo-ico-20.png" alt="" class="logo" />
+                            mini.do
+                            </span>
+                            <span class="app-header__sub">Your todo list <strong>for the day</strong></span>
+                        </h4>
                     </div>
 
-                    <form onsubmit="null">
+                    <form onsubmit="null" class="todo-grid">
                         <input id="todo-entry" type="text" autocomplete="false" />
                         <button id="todo-submit" type="submit">+ Add</button>
                     </form>
